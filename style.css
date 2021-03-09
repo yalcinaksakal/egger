@@ -39,28 +39,41 @@ body {
 /* box */
 
 .box-wrapper {
+  position: absolute;
+  top: 80vh;
+  left: 45vw;
   width: var(--cube-size);
   height: var(--cube-size);
 
   /* perspective: 400px; */
- 
-  
 }
 .box {
-  position: absolute;
-  top:80vh;
-  left:50vw;
   transform-style: preserve-3d;
   width: var(--cube-size);
   height: var(--cube-size);
+  transition: all 0.2s;
   /* animation: rotate_cube 10s linear infinite; */
 }
+
+/* @keyframes rotate_cube {
+    0% {
+      transform: rotate3d(1, 1, 1, 0deg);
+    }
+    50% {
+      transform: rotate3d(-1, 1, -1, 180deg);
+    }
+    100% {
+      transform: rotate3d(1, 0.5, 1, -360deg);
+    }
+  } */
+
 .box > .plane {
   position: absolute;
   left: 0;
   width: var(--cube-size);
   height: var(--cube-size);
-  background: -webkit-linear-gradient(right bottom, #f96, #f00);
+  background: rgb(56, 55, 55);
+  border: 2px solid black;
   box-sizing: border-box;
   text-align: center;
   line-height: var(--cube-size);
@@ -69,7 +82,7 @@ body {
 }
 
 .plane.a {
-  transform: translate3d(0px, var(--half-cube-size), var(--half-cube-size))
+  transform: translate3d(0, var(--half-cube-size), var(--half-cube-size))
     rotateX(90deg);
 }
 .plane.b {
@@ -82,26 +95,16 @@ body {
 .plane.d {
   transform: translate3d(0, var(--negative-hcz), var(--half-cube-size))
     rotateX(90deg);
+  opacity: 0.2;
 }
 .plane.e {
   transform: translate3d(var(--negative-hcz), 0, var(--half-cube-size))
     rotateY(90deg);
 }
-.plane.f {
+/* .plane.f {
   transform: rotateY(45deg);
-}
+}   */
 
-@keyframes rotate_cube {
-  0% {
-    transform: rotate3d(1, 1, 1, 0deg);
-  }
-  50% {
-    transform: rotate3d(-1, 1, -1, 180deg);
-  }
-  100% {
-    transform: rotate3d(1, 0.5, 1, -360deg);
-  }
-}
 /* media queries */
 @media screen and (max-width: 720px) {
   .game-container {
