@@ -8,8 +8,8 @@ const speedX = 5;
 const speedY = 7;
 //angle of box
 let rotateX = 0;
-let rotateY = 0;
-const acceptanceAngle = 70;
+let rotateZ = 0;
+const acceptanceAngle = 50;
 //
 let gameContainerPos = gameConteiner.getBoundingClientRect();
 window.onresize = () =>
@@ -17,12 +17,6 @@ window.onresize = () =>
 
 let boxNextX = boxContainer.getBoundingClientRect().left,
   boxNextY = boxContainer.getBoundingClientRect().top;
-
-const angleChecker = angle => {
-  if (Math.abs(angle) > acceptanceAngle)
-    angle = angle > 0 ? acceptanceAngle : -acceptanceAngle;
-  return angle;
-};
 
 let directionX, directionY, boxX, boxY;
 
@@ -60,14 +54,20 @@ function moveBoxTo() {
   window.requestAnimationFrame(moveBoxTo);
 }
 
+const angleChecker = angle => {
+  if (Math.abs(angle) > acceptanceAngle)
+    angle = angle > 0 ? acceptanceAngle : -acceptanceAngle;
+  return angle;
+};
 document.addEventListener("mousemove", e => {
   boxNextX = e.pageX;
   boxNextY = e.pageY;
 
   //rotate box towards mouse
-  rotateX = angleChecker(e.pageX - eggBoxEl.getBoundingClientRect().left);
-  rotateY = angleChecker(-e.pageY + eggBoxEl.getBoundingClientRect().top) + 20;
-  if (rotateY > 0) rotateY = rotateY / 4;
-  eggBoxEl.style.transform = `rotateX(${rotateY}deg) rotateZ(${rotateX}deg)`;
+  rotateZ = angleChecker(e.pageX - eggBoxEl.getBoundingClientRect().left);
+  rotateX = angleChecker(-e.pageY + eggBoxEl.getBoundingClientRect().top);
+  rotateX = rotateX > 0 ? rotateX / 2 : rotateX;
+
+  eggBoxEl.style.transform = `rotateX(${rotateX}deg) rotateZ(${rotateZ}deg)`;
 });
 moveBoxTo();

@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 :root {
-  --basket-color: dodgerblue;
+  --basket-color: red;
 
   --cube-size: 70px;
   --half-cube-size: 35px;
@@ -28,8 +28,7 @@ body {
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: 0 5px 10px 2px rgb(0, 0, 0, 0.6);
-  background: rgba(206, 238, 192, 0.666);
-  
+  background: rgba(81, 81, 81, 0.666);
 }
 
 /* box */
@@ -47,7 +46,7 @@ body {
   transform-style: preserve-3d;
   width: var(--cube-size);
   height: var(--cube-size);
-  /* transition: all 0.2s; */
+
   /* animation: rotate_cube 10s linear infinite; */
 }
 
@@ -70,12 +69,11 @@ body {
 .e,
 .f {
   border-radius: 15px 15px 0 0;
-  background: rgba(8, 56, 105, 0.272);
+  background: rgba(253, 253, 253, 0.102);
 }
 .a {
-  background: var(--basket-color);
+  background: rgb(255, 9, 9);
 }
-
 
 .box > .plane {
   position: absolute;
@@ -83,7 +81,7 @@ body {
   width: var(--cube-size);
   height: var(--cube-size);
 
-  border: 1px solid black; */
+  border: 2px solid rgb(132, 132, 132);
 }
 
 .plane.a {
@@ -106,13 +104,38 @@ body {
   transform: translate3d(var(--negative-hcz), 0, var(--half-cube-size))
     rotateY(90deg);
 }
-/* .plane.f {
-  transform: rotateY(45deg);
-}   */
+
+.chicks {
+  align-self: start;
+  margin-top: 5vh;
+  margin-left: 10px;
+}
+.chicks img {
+  border-radius: 15px;
+}
+
+.mobile-msg {
+  display: none;
+}
 
 /* media queries */
 @media screen and (max-width: 720px) {
   .game-container {
     width: 95vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .mobile-msg {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(130, 177, 110);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+    z-index: 100;
   }
 }
