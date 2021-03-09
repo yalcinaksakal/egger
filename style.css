@@ -3,8 +3,9 @@
 :root {
   --basket-color: rgb(220, 205, 95);
   --basket-shadow: rgb(118, 108, 49);
-  --cube-size: 40px;
-  --half-cube-size: 20px;
+  --cube-size: 60px;
+  --half-cube-size: 30px;
+  --negative-hcz: -30px;
 }
 
 body {
@@ -37,26 +38,24 @@ body {
 
 /* box */
 
-.plane_transform(@x:0, @y:0, @z:0, @rx:0,@ry:0) {
-  transform: translate3d(@x, @y, @z) rotateX(@rx) rotateY(@ry);
-}
-
-.wrapper {
+.box-wrapper {
   width: var(--cube-size);
   height: var(--cube-size);
 
-  perspective: 400px;
-  margin: 0 auto;
-  padding: 100px;
+  /* perspective: 400px; */
+ 
+  
 }
-.cube {
-  position: relative;
+.box {
+  position: absolute;
+  top:80vh;
+  left:50vw;
   transform-style: preserve-3d;
   width: var(--cube-size);
   height: var(--cube-size);
-  // animation: rotate_cube 1s linear infinite;
+  /* animation: rotate_cube 10s linear infinite; */
 }
-.cube > .plane {
+.box > .plane {
   position: absolute;
   left: 0;
   width: var(--cube-size);
@@ -70,22 +69,26 @@ body {
 }
 
 .plane.a {
-  .plane_transform(0px,---half-cube-size, --half-cube-size, 90deg);
+  transform: translate3d(0px, var(--half-cube-size), var(--half-cube-size))
+    rotateX(90deg);
 }
 .plane.b {
-  .plane_transform(0,0, var(--cube-size));
+  transform: translate3d(0, 0, var(--cube-size));
 }
 .plane.c {
-  .plane_transform(--half-cube-size, 0, --half-cube-size, 0, 90deg);
+  transform: translate3d(var(--half-cube-size), 0, var(--half-cube-size))
+    rotateY(90deg);
 }
 .plane.d {
-  .plane_transform(0, --half-cube-size, --half-cube-size, 90deg);
+  transform: translate3d(0, var(--negative-hcz), var(--half-cube-size))
+    rotateX(90deg);
 }
 .plane.e {
-  .plane_transform(---half-cube-size, 0, --half-cube-size, 0, 90deg);
+  transform: translate3d(var(--negative-hcz), 0, var(--half-cube-size))
+    rotateY(90deg);
 }
 .plane.f {
-  .plane_transform(0, 0, 0, 0, 45deg);
+  transform: rotateY(45deg);
 }
 
 @keyframes rotate_cube {
