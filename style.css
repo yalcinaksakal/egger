@@ -1,0 +1,107 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+:root {
+  --basket-color: rgb(220, 205, 95);
+  --basket-shadow: rgb(118, 108, 49);
+  --cube-size: 40px;
+  --half-cube-size: 20px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Lato", "Times New Roman", sans-serif;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background: url("./imgs/farm.jpg");
+  background-size: cover;
+}
+
+.game-container {
+  width: 700px;
+  height: 90vh;
+  border: 1px solid gray;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px 2px rgb(0, 0, 0, 0.6);
+  background: rgba(30, 143, 255, 0.361);
+}
+/* i {
+  color: var(--basket-color);
+  font-size: calc(10 * 1vh);
+  text-shadow: 0 3px 10px var(--basket-shadow);
+} */
+
+/* box */
+
+.plane_transform(@x:0, @y:0, @z:0, @rx:0,@ry:0) {
+  transform: translate3d(@x, @y, @z) rotateX(@rx) rotateY(@ry);
+}
+
+.wrapper {
+  width: var(--cube-size);
+  height: var(--cube-size);
+
+  perspective: 400px;
+  margin: 0 auto;
+  padding: 100px;
+}
+.cube {
+  position: relative;
+  transform-style: preserve-3d;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  // animation: rotate_cube 1s linear infinite;
+}
+.cube > .plane {
+  position: absolute;
+  left: 0;
+  width: var(--cube-size);
+  height: var(--cube-size);
+  background: -webkit-linear-gradient(right bottom, #f96, #f00);
+  box-sizing: border-box;
+  text-align: center;
+  line-height: var(--cube-size);
+  color: yellow;
+  font-size: 3em;
+}
+
+.plane.a {
+  .plane_transform(0px,---half-cube-size, --half-cube-size, 90deg);
+}
+.plane.b {
+  .plane_transform(0,0, var(--cube-size));
+}
+.plane.c {
+  .plane_transform(--half-cube-size, 0, --half-cube-size, 0, 90deg);
+}
+.plane.d {
+  .plane_transform(0, --half-cube-size, --half-cube-size, 90deg);
+}
+.plane.e {
+  .plane_transform(---half-cube-size, 0, --half-cube-size, 0, 90deg);
+}
+.plane.f {
+  .plane_transform(0, 0, 0, 0, 45deg);
+}
+
+@keyframes rotate_cube {
+  0% {
+    transform: rotate3d(1, 1, 1, 0deg);
+  }
+  50% {
+    transform: rotate3d(-1, 1, -1, 180deg);
+  }
+  100% {
+    transform: rotate3d(1, 0.5, 1, -360deg);
+  }
+}
+/* media queries */
+@media screen and (max-width: 720px) {
+  .game-container {
+    width: 95vw;
+  }
+}
