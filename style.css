@@ -3,9 +3,9 @@
 :root {
   --basket-color: rgb(220, 205, 95);
   --basket-shadow: rgb(118, 108, 49);
-  --cube-size: 60px;
-  --half-cube-size: 30px;
-  --negative-hcz: -30px;
+  --cube-size: 70px;
+  --half-cube-size: 35px;
+  --negative-hcz: -35px;
 }
 
 body {
@@ -29,6 +29,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 5px 10px 2px rgb(0, 0, 0, 0.6);
   background: rgba(30, 143, 255, 0.361);
+  cursor: crosshair;
 }
 /* i {
   color: var(--basket-color);
@@ -51,7 +52,7 @@ body {
   transform-style: preserve-3d;
   width: var(--cube-size);
   height: var(--cube-size);
-  transition: all 0.2s;
+  /* transition: all 0.2s; */
   /* animation: rotate_cube 10s linear infinite; */
 }
 
@@ -67,18 +68,26 @@ body {
     }
   } */
 
+/* Planes */
+
+.b,
+.c,
+.e,
+.f {
+  border-radius: 15px 15px 0 0;
+  background: rgba(220, 205, 95, 0.36);
+}
+.a {
+  background: var(--basket-color);
+}
+
 .box > .plane {
   position: absolute;
   left: 0;
   width: var(--cube-size);
   height: var(--cube-size);
-  background: rgb(56, 55, 55);
-  border: 2px solid black;
-  box-sizing: border-box;
-  text-align: center;
-  line-height: var(--cube-size);
-  color: yellow;
-  font-size: 3em;
+
+  border: 1px solid black;
 }
 
 .plane.a {
@@ -95,7 +104,7 @@ body {
 .plane.d {
   transform: translate3d(0, var(--negative-hcz), var(--half-cube-size))
     rotateX(90deg);
-  opacity: 0.2;
+  opacity: 0;
 }
 .plane.e {
   transform: translate3d(var(--negative-hcz), 0, var(--half-cube-size))
