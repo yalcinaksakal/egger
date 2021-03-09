@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 :root {
-  --basket-color: rgb(220, 205, 95);
-  --basket-shadow: rgb(118, 108, 49);
+  --basket-color: dodgerblue;
+
   --cube-size: 70px;
   --half-cube-size: 35px;
   --negative-hcz: -35px;
@@ -28,14 +28,9 @@ body {
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: 0 5px 10px 2px rgb(0, 0, 0, 0.6);
-  background: rgba(30, 143, 255, 0.361);
-  cursor: crosshair;
+  background: rgba(206, 238, 192, 0.666);
+  
 }
-/* i {
-  color: var(--basket-color);
-  font-size: calc(10 * 1vh);
-  text-shadow: 0 3px 10px var(--basket-shadow);
-} */
 
 /* box */
 
@@ -75,11 +70,12 @@ body {
 .e,
 .f {
   border-radius: 15px 15px 0 0;
-  background: rgba(220, 205, 95, 0.36);
+  background: rgba(8, 56, 105, 0.272);
 }
 .a {
   background: var(--basket-color);
 }
+
 
 .box > .plane {
   position: absolute;
@@ -87,7 +83,7 @@ body {
   width: var(--cube-size);
   height: var(--cube-size);
 
-  border: 1px solid black;
+  border: 1px solid black; */
 }
 
 .plane.a {
