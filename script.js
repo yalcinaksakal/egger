@@ -19,6 +19,8 @@ const eggColors = [
   "rgba(81, 81, 81, 0.666)",
   "rgb(96, 49, 41)",
 ];
+let numberOfBrokenEggs = 0;
+
 let score = 0;
 //
 let gameContainerPos = gameContainer.getBoundingClientRect();
@@ -30,14 +32,47 @@ let boxNextX = boxContainer.getBoundingClientRect().left,
 
 let directionX, directionY, boxX, boxY;
 
+function checkEggNextPosition(egg, eggEl) {
+  if (egg.top +20 > gameContainerPos.bottom) {
+    egg.broken = true;
+    numberOfBrokenEggs++;
+    const brokenEgg = document.createElement("img");
+    brokenEgg.setAttribute("src", "./imgs/broken-egg.png");
+    brokenEgg.style.position = "absolute";
+    brokenEgg.style.top = `${gameContainerPos.bottom-20}px`;
+    brokenEgg.style.left = eggEl.style.left;
+    brokenEgg.style.width = "70px";
+    brokenEgg.style.height = "auto";
+
+    eggEl.parentElement.appendChild(brokenEgg);
+
+    eggEl.parentElement.removeChild(eggEl);
+    return false;
+  }
+  if (egg.left < gameContainerPos.left || egg.left > gameContainerPos.right) {
+    egg.speedX = -egg.speedX;
+    egg.speedX > 0
+      ? (eggEl.style.animation = "spinRight 3s linear infinite")
+      : (eggEl.style.animation = "spinLeft 3s linear infinite");
+    return false;
+  }
+  if (egg.top < gameContainerPos.top) {
+    egg.speedY = -egg.speedY;
+    return false;
+  }
+  return true;
+}
+
 function moveEggs() {
   eggArray.forEach(egg => {
     if (!egg.broken) {
       egg.left += egg.speedX;
       egg.top += egg.speedY;
       const eggEl = document.getElementById(egg.el);
-      eggEl.style.top = `${egg.top}px`;
-      eggEl.style.left = `${egg.left}px`;
+      if (checkEggNextPosition(egg, eggEl)) {
+        eggEl.style.top = `${egg.top}px`;
+        eggEl.style.left = `${egg.left}px`;
+      }
     }
   });
 }
@@ -87,11 +122,11 @@ document.addEventListener("mousemove", e => {
 });
 
 function egger() {
-  let rndm = Math.floor(Math.random() * 5);
+  let rndm = Math.random() * 8;
   const eggProperties = {
-    color: eggColors[rndm],
-    speedX: rndm * -2,
-    speedY: rndm > 2 ? -rndm : rndm,
+    color: eggColors[Math.floor(rndm - 3)],
+    speedX: rndm * -1.5,
+    speedY: rndm > 3 ? -rndm*0.8 : rndm*0.8,
   };
 
   const newEgg = document.createElement("i");

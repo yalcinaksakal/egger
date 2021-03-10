@@ -28,14 +28,14 @@ body {
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: 0 5px 10px 2px rgb(0, 0, 0, 0.6);
-  background: rgba(81, 81, 81, 0.666);
+  background: rgba(179, 179, 179, 0.666);
 }
 
 /* eggs */
 .fas {
   font-size: 30px;
   animation: spinLeft 3s linear infinite;
-  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.966);
+  text-shadow: 0 1px 5px rgba(37, 37, 37, 0.966);
 }
 
 @keyframes spinLeft {
