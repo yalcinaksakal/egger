@@ -32,6 +32,29 @@ body {
   background: rgba(179, 179, 179, 0.666);
 }
 
+#start {
+  margin: 100px auto;
+  padding: 0;
+  top: 50vh;
+  text-align: center;
+  text-justify: auto;
+  width: 150px;
+  height: 37px;
+  font-size: 30px;
+  font-weight: 700;
+  border-radius: 15px;
+  background: rgb(194, 194, 194);
+  color: dodgerblue;
+  box-shadow: 0 2px 10px 2px black;
+  cursor: pointer;
+  user-select: none;
+  transform: all 0.3s;
+}
+
+#start:hover {
+  filter: brightness(110%);
+  transform: scale(1.05);
+}
 /* eggs */
 .fas {
   font-size: 30px;
@@ -67,7 +90,7 @@ body {
 .box-wrapper {
   position: absolute;
   top: 80vh;
-  left: 45vw;
+  left: 350px;
   width: var(--cube-size);
   height: var(--cube-size);
 

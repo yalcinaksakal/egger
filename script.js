@@ -259,5 +259,11 @@ function egger() {
   eggProperties.isRemoved = false;
 }
 
-egger();
+// egger();
 moveBoxTo();
+
+const btnStart = document.getElementById("start");
+btnStart.addEventListener("click", () => {
+  btnStart.hidden = true;
+  egger();
+});
