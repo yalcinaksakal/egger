@@ -258,8 +258,6 @@ function egger() {
 }
 
 function reset() {
-  const speedX = 5;
-  const speedY = 7;
   //angle of box
   let rotateX = 0;
   let rotateZ = 0;
@@ -273,11 +271,6 @@ function reset() {
   let brokens = 0;
   //
   let gameContainerPos = gameContainer.getBoundingClientRect();
-
-  let boxNextX = boxContainer.getBoundingClientRect().left,
-    boxNextY = boxContainer.getBoundingClientRect().top;
-
-  let directionX, directionY, boxX, boxY;
 }
 reset();
 moveBoxTo();
