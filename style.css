@@ -35,7 +35,13 @@ body {
 .fas {
   font-size: 30px;
   animation: spinLeft 3s linear infinite;
-  text-shadow: 0 1px 5px rgba(37, 37, 37, 0.966);
+  font: bold;
+
+  color: transparent;
+  text-shadow: 2px 2px 3px rgba(4, 4, 4, 0.5);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
 }
 
 @keyframes spinLeft {
@@ -95,7 +101,9 @@ body {
   border-radius: 15px 15px 0 0;
   background: rgba(253, 253, 253, 0.102);
 }
-.a,
+.a {
+  background: rgb(135, 135, 20);
+}
 .c,
 .e {
   background: var(--basket-color);
@@ -131,19 +139,42 @@ body {
     rotateY(90deg);
 }
 
-.chicks {
-  align-self: start;
-  margin-top: 5vh;
+/* panel */
+.panel {
   margin-left: 10px;
+  width: 230px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .chicks img {
   width: 200px;
   height: auto;
   border-radius: 15px;
   border: 1px solid gray;
-  box-shadow: 0 5px 10px 8px rgba(0, 0, 0, 0.401);
+  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.674);
 }
 
+.score {
+  margin-top: 20px;
+  width: 200px;
+  height: 60px;
+  background: whitesmoke;
+  border-radius: 15px;
+  border: 1px solid gray;
+  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.674);
+}
+.brokens {
+  margin-top: 20px;
+  width: 200px;
+  height: 60px;
+  background: whitesmoke;
+  border-radius: 15px;
+  border: 1px solid gray;
+  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.674);
+}
 .mobile-msg {
   display: none;
 }

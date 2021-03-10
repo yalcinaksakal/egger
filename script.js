@@ -50,6 +50,7 @@ let eggInBoxPosY = 40;
 
 //
 let score = 0;
+let brokens = 0;
 //
 let gameContainerPos = gameContainer.getBoundingClientRect();
 window.onresize = () =>
@@ -61,9 +62,11 @@ let boxNextX = boxContainer.getBoundingClientRect().left,
 let directionX, directionY, boxX, boxY;
 
 function checkEggNextPosition(egg, eggEl) {
+  //broken egg
   if (egg.top + 20 > gameContainerPos.bottom) {
     egger();
     egg.broken = true;
+    brokens++;
     numberOfBrokenEggs++;
     const brokenEgg = document.createElement("img");
     brokenEgg.setAttribute("src", "./imgs/broken-egg.png");
@@ -104,6 +107,8 @@ function isCatched(x, y) {
 }
 
 function catched(egg, eggEl) {
+  score++;
+
   //put egg into box
   eggEl.parentElement.removeChild(eggEl);
   frontOfBox.appendChild(eggEl);
@@ -130,8 +135,9 @@ function catched(egg, eggEl) {
       }
     });
   }
-
   egger();
+  
+  
 }
 
 function moveEggs() {
@@ -163,16 +169,27 @@ function moveBoxTo() {
 
   directionX += boxX;
   directionY += boxY;
+  let movementCheck = false;
   if (
     directionX > gameContainerPos.left &&
     directionX < gameContainerPos.right - 70
-  )
+  ) {
+    movementCheck = true;
     boxContainer.style.left = `${directionX}px`;
+  }
   if (
     directionY > gameContainerPos.top &&
     directionY < gameContainerPos.bottom - 100
-  )
+  ) {
+    movementCheck = true;
     boxContainer.style.top = `${directionY}px`;
+  }
+  // if (!movementCheck) {
+  //   speedX = -speedX;
+  //   speedY = -speedY;
+  //   directionX++;
+  //   directionY++;
+  // }
   moveEggs();
   window.requestAnimationFrame(moveBoxTo);
 }
@@ -195,8 +212,11 @@ document.addEventListener("mousemove", e => {
 });
 
 function egger() {
+  //console.log("score: ", score, "brokens: ", brokens, "moving eggs: ", eggArray.length-brokens-score);
   //Create egg
   let rndm = Math.random() * 6;
+  if (rndm > 5.5 && eggArray.length - brokens - score < 4) egger();
+
   const eggProperties = {
     color: eggColors[Math.floor(Math.random() * 27)],
     speedX: Math.random() * -6,
@@ -212,14 +232,15 @@ function egger() {
   let range = 400 + gameContainerPos.width;
   rndm = Math.random() * range;
   if (rndm < 200) {
-    eggProperties.left = gameContainerPos.left+15;
-    eggProperties.top = gameContainerPos.top + rndm;
-  } else if (rndm<range-200){
-    eggProperties.left = gameContainerPos.left+rndm-230;
-    eggProperties.top = gameContainerPos.top+15;
-  } else{
-    eggProperties.left = gameContainerPos.right-30;
-    eggProperties.top = gameContainerPos.top+rndm-range+200;
+    eggProperties.left = gameContainerPos.left + 10;
+    eggProperties.top = gameContainerPos.top + rndm + 25;
+    newEgg.speedX = -newEgg.speedX;
+  } else if (rndm < range - 230) {
+    eggProperties.left = gameContainerPos.left + rndm - 170;
+    eggProperties.top = gameContainerPos.top + 5;
+  } else {
+    eggProperties.left = gameContainerPos.right - 30;
+    eggProperties.top = gameContainerPos.top + rndm - range + 230;
   }
 
   //eggProperties.left = gameContainerPos.right - 30;
