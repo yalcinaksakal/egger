@@ -2,6 +2,7 @@
 const gameContainer = document.querySelector(".game-container");
 const eggBoxEl = document.getElementById("eggBox");
 const boxContainer = document.querySelector(".box-wrapper");
+const bottomOfBox = document.querySelector(".b");
 ///
 //speed
 const speedX = 5;
@@ -20,7 +21,10 @@ const eggColors = [
   "rgb(96, 49, 41)",
 ];
 let numberOfBrokenEggs = 0;
+let eggInBoxPosX = 0;
+let eggInBoxPosY = 40;
 
+//
 let score = 0;
 //
 let gameContainerPos = gameContainer.getBoundingClientRect();
@@ -34,21 +38,20 @@ let directionX, directionY, boxX, boxY;
 
 function checkEggNextPosition(egg, eggEl) {
   if (egg.top + 20 > gameContainerPos.bottom) {
-    egg.speedY = -egg.speedY;
+    egger();
+    egg.broken = true;
+    numberOfBrokenEggs++;
+    const brokenEgg = document.createElement("img");
+    brokenEgg.setAttribute("src", "./imgs/broken-egg.png");
+    brokenEgg.style.position = "absolute";
+    brokenEgg.style.top = `${gameContainerPos.bottom - 20}px`;
+    brokenEgg.style.left = eggEl.style.left;
+    brokenEgg.style.width = "70px";
+    brokenEgg.style.height = "auto";
 
-    // egg.broken = true;
-    // numberOfBrokenEggs++;
-    // const brokenEgg = document.createElement("img");
-    // brokenEgg.setAttribute("src", "./imgs/broken-egg.png");
-    // brokenEgg.style.position = "absolute";
-    // brokenEgg.style.top = `${gameContainerPos.bottom-20}px`;
-    // brokenEgg.style.left = eggEl.style.left;
-    // brokenEgg.style.width = "70px";
-    // brokenEgg.style.height = "auto";
+    eggEl.parentElement.appendChild(brokenEgg);
 
-    // eggEl.parentElement.appendChild(brokenEgg);
-
-    // eggEl.parentElement.removeChild(eggEl);
+    eggEl.parentElement.removeChild(eggEl);
     return false;
   }
   if (egg.left < gameContainerPos.left || egg.left > gameContainerPos.right) {
@@ -65,15 +68,48 @@ function checkEggNextPosition(egg, eggEl) {
   return true;
 }
 
+function isCatched(x, y) {
+  if (
+    x > directionX &&
+    x < directionX + 70 &&
+    y > directionY - 10 &&
+    y < directionY + 10
+  )
+    return true;
+  return false;
+}
+
+function catched(egg, eggEl) {
+  //put egg into box
+  eggEl.parentElement.removeChild(eggEl);
+  bottomOfBox.appendChild(eggEl);
+  //stop rotation decrease opacity
+  eggEl.style.animation = "none";
+  //eggEl.style.opacity = "0.3";
+  //set new positon for next catcehd egg
+  eggEl.style.top = `${eggInBoxPosY}px`;
+  eggEl.style.left = `${eggInBoxPosX}px`;
+  eggInBoxPosX += 10;
+  if (eggInBoxPosX > 50) {
+    eggInBoxPosX = 0;
+    eggInBoxPosY -= 10;
+  }
+
+  egg.isRemoved = true;
+  egger();
+}
+
 function moveEggs() {
   eggArray.forEach(egg => {
-    if (!egg.broken) {
+    if (!egg.broken && !egg.isRemoved) {
       egg.left += egg.speedX;
       egg.top += egg.speedY;
       const eggEl = document.getElementById(egg.el);
       if (checkEggNextPosition(egg, eggEl)) {
         eggEl.style.top = `${egg.top}px`;
         eggEl.style.left = `${egg.left}px`;
+        ////catched
+        if (isCatched(egg.left, egg.top)) catched(egg, eggEl);
       }
     }
   });
@@ -127,9 +163,9 @@ function egger() {
   //Create egg
   let rndm = Math.random() * 8;
   const eggProperties = {
-    color: eggColors[Math.floor(rndm - 3)],
-    speedX: rndm * -1.5,
-    speedY: rndm > 3 ? -rndm * 0.8 : rndm * 0.8,
+    color: eggColors[Math.floor(Math.random() * 10)],
+    speedX: Math.random() * -8,
+    speedY: rndm > 3 ? -rndm : rndm,
   };
 
   const newEgg = document.createElement("i");
@@ -149,27 +185,8 @@ function egger() {
   eggArray.push(eggProperties);
   newEgg.id = eggArray.length;
   eggProperties.el = newEgg.id;
-  //observe egg
-  boxEntryObserver.observe(newEgg);
+  eggProperties.isRemoved = false;
 }
-
-//intersection observers
-
-const observerCbFunc = entries => {
-  if (entries[0].intersectionRatio !== 0) {
-    console.log(" The egg is in box!");
-  } else {
-    console.log("The egg is out of box");
-  }
-};
-//options for interseciton observer
-
-const options = {
-  root: document.querySelector(".d"),
-  rootMargin: "0px",
-  threshold: 0,
-};
-const boxEntryObserver = new IntersectionObserver(observerCbFunc, options);
 
 egger();
 moveBoxTo();
