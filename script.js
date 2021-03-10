@@ -3,6 +3,8 @@ const gameContainer = document.querySelector(".game-container");
 const eggBoxEl = document.getElementById("eggBox");
 const boxContainer = document.querySelector(".box-wrapper");
 const frontOfBox = document.querySelector(".b");
+const scoreEl = document.querySelector(".score");
+const brokenEl = document.querySelector(".brokens");
 
 ///
 //speed
@@ -67,6 +69,7 @@ function checkEggNextPosition(egg, eggEl) {
     egger();
     egg.broken = true;
     brokens++;
+    brokenEl.textContent = `MISSED: ${brokens}`;
     numberOfBrokenEggs++;
     const brokenEgg = document.createElement("img");
     brokenEgg.setAttribute("src", "./imgs/broken-egg.png");
@@ -108,6 +111,7 @@ function isCatched(x, y) {
 
 function catched(egg, eggEl) {
   score++;
+  scoreEl.textContent = `SCORE : ${score}`;
 
   //put egg into box
   eggEl.parentElement.removeChild(eggEl);
@@ -136,8 +140,6 @@ function catched(egg, eggEl) {
     });
   }
   egger();
-  
-  
 }
 
 function moveEggs() {
@@ -220,7 +222,7 @@ function egger() {
   const eggProperties = {
     color: eggColors[Math.floor(Math.random() * 27)],
     speedX: Math.random() * -6,
-    speedY: rndm > 3 ? -rndm : rndm,
+    speedY: rndm > 3 ? -rndm : 2,
   };
 
   const newEgg = document.createElement("i");
