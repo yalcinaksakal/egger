@@ -2,7 +2,8 @@
 const gameContainer = document.querySelector(".game-container");
 const eggBoxEl = document.getElementById("eggBox");
 const boxContainer = document.querySelector(".box-wrapper");
-const bottomOfBox = document.querySelector(".b");
+const frontOfBox = document.querySelector(".b");
+
 ///
 //speed
 const speedX = 5;
@@ -15,11 +16,34 @@ const acceptanceAngle = 50;
 const eggArray = [];
 const eggColors = [
   "whitesmoke",
-  "rgb(205, 208, 159)",
-  "rgb(129, 223, 224)",
-  "rgba(81, 81, 81, 0.666)",
-  "rgb(96, 49, 41)",
+  "#F5F5DC",
+  "#FFEBCD",
+  "#FFE4C4",
+  "#F0FFFF",
+  "#7FFFD4",
+  "#FAEBD7",
+  "#F0F8FF",
+  "#5F9EA0",
+  "#FFF8DC",
+  "#8FBC8F",
+  "#00BFFF",
+  "#F8F8FF",
+  "#CD5C5C",
+  "#FFFFF0",
+  "#D3D3D3",
+  "#90EE90",
+  "#FFB6C1",
+  "#B0C4DE",
+  "#FFFFE0",
+  "#808000",
+  "#AFEEEE",
+  "#FFEFD5",
+  "#DDA0DD",
+  "#C0C0C0",
+  "#D2B48C",
+  "#FFFF00",
 ];
+
 let numberOfBrokenEggs = 0;
 let eggInBoxPosX = 0;
 let eggInBoxPosY = 40;
@@ -65,16 +89,16 @@ function checkEggNextPosition(egg, eggEl) {
     egg.speedY = -egg.speedY;
     return false;
   }
+  //check 0 speeds
+  if (egg.speedX === 0) egg.speedX = 5;
+  if (egg.speedY === 0) egg.speedY = 3;
   return true;
 }
 
 function isCatched(x, y) {
-  if (
-    x > directionX &&
-    x < directionX + 70 &&
-    y > directionY - 10 &&
-    y < directionY + 10
-  )
+  const { top, left } = boxContainer.getBoundingClientRect();
+
+  if (x > left - 15 && x < left + 85 && y > top - 15 && y < top + 85)
     return true;
   return false;
 }
@@ -82,20 +106,31 @@ function isCatched(x, y) {
 function catched(egg, eggEl) {
   //put egg into box
   eggEl.parentElement.removeChild(eggEl);
-  bottomOfBox.appendChild(eggEl);
+  frontOfBox.appendChild(eggEl);
   //stop rotation decrease opacity
   eggEl.style.animation = "none";
   //eggEl.style.opacity = "0.3";
   //set new positon for next catcehd egg
   eggEl.style.top = `${eggInBoxPosY}px`;
   eggEl.style.left = `${eggInBoxPosX}px`;
+  egg.isRemoved = true;
   eggInBoxPosX += 10;
   if (eggInBoxPosX > 50) {
     eggInBoxPosX = 0;
     eggInBoxPosY -= 10;
   }
+  if (eggInBoxPosY < 0) {
+    eggInBoxPosY = 40;
 
-  egg.isRemoved = true;
+    //empty box
+    eggArray.forEach(egg => {
+      if (egg.isRemoved) {
+        const el = document.getElementById(egg.el);
+        if (el) el.parentElement.removeChild(el);
+      }
+    });
+  }
+
   egger();
 }
 
@@ -161,10 +196,10 @@ document.addEventListener("mousemove", e => {
 
 function egger() {
   //Create egg
-  let rndm = Math.random() * 8;
+  let rndm = Math.random() * 6;
   const eggProperties = {
-    color: eggColors[Math.floor(Math.random() * 10)],
-    speedX: Math.random() * -8,
+    color: eggColors[Math.floor(Math.random() * 27)],
+    speedX: Math.random() * -6,
     speedY: rndm > 3 ? -rndm : rndm,
   };
 
@@ -173,11 +208,24 @@ function egger() {
   newEgg.style.position = "absolute";
 
   newEgg.style.color = eggProperties.color;
+  //get random location t start
+  let range = 400 + gameContainerPos.width;
+  rndm = Math.random() * range;
+  if (rndm < 200) {
+    eggProperties.left = gameContainerPos.left+15;
+    eggProperties.top = gameContainerPos.top + rndm;
+  } else if (rndm<range-200){
+    eggProperties.left = gameContainerPos.left+rndm-230;
+    eggProperties.top = gameContainerPos.top+15;
+  } else{
+    eggProperties.left = gameContainerPos.right-30;
+    eggProperties.top = gameContainerPos.top+rndm-range+200;
+  }
 
-  eggProperties.left = gameContainerPos.right - 30;
+  //eggProperties.left = gameContainerPos.right - 30;
   newEgg.style.left = `${eggProperties.left}px`;
 
-  eggProperties.top = gameContainerPos.top + 200;
+  //eggProperties.top = gameContainerPos.top + 200;
   newEgg.style.top = `${eggProperties.top}px`;
 
   gameContainer.appendChild(newEgg);

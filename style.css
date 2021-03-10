@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
 :root {
-  --basket-color: red;
+  --basket-color: rgb(255, 247, 0);
 
   --cube-size: 70px;
   --half-cube-size: 35px;
@@ -95,8 +95,10 @@ body {
   border-radius: 15px 15px 0 0;
   background: rgba(253, 253, 253, 0.102);
 }
-.a {
-  background: rgb(7, 7, 7);
+.a,
+.c,
+.e {
+  background: var(--basket-color);
 }
 
 .box > .plane {
