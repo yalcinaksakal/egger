@@ -31,6 +31,30 @@ body {
   background: rgba(81, 81, 81, 0.666);
 }
 
+/* eggs */
+.fas {
+  font-size: 30px;
+  animation: spinLeft 3s linear infinite;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.966);
+}
+
+@keyframes spinLeft {
+  100% {
+    transform: rotate(0deg);
+  }
+  0% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinRight {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 /* box */
 
 .box-wrapper {
@@ -72,7 +96,7 @@ body {
   background: rgba(253, 253, 253, 0.102);
 }
 .a {
-  background: rgb(255, 9, 9);
+  background: rgb(7, 7, 7);
 }
 
 .box > .plane {
@@ -111,7 +135,11 @@ body {
   margin-left: 10px;
 }
 .chicks img {
+  width: 200px;
+  height: auto;
   border-radius: 15px;
+  border: 1px solid gray;
+  box-shadow: 0 5px 10px 8px rgba(0, 0, 0, 0.401);
 }
 
 .mobile-msg {
@@ -119,13 +147,13 @@ body {
 }
 
 /* media queries */
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 900px) {
   .game-container {
-    width: 95vw;
+    width: 500px;
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 720px) {
   .mobile-msg {
     position: absolute;
     height: 100vh;
