@@ -122,7 +122,7 @@ body {
 .plane.d {
   transform: translate3d(0, var(--negative-hcz), var(--half-cube-size))
     rotateX(90deg);
-  opacity: 0;
+  visibility: hidden;
 }
 .plane.e {
   transform: translate3d(var(--negative-hcz), 0, var(--half-cube-size))

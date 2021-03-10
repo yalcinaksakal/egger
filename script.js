@@ -33,20 +33,22 @@ let boxNextX = boxContainer.getBoundingClientRect().left,
 let directionX, directionY, boxX, boxY;
 
 function checkEggNextPosition(egg, eggEl) {
-  if (egg.top +20 > gameContainerPos.bottom) {
-    egg.broken = true;
-    numberOfBrokenEggs++;
-    const brokenEgg = document.createElement("img");
-    brokenEgg.setAttribute("src", "./imgs/broken-egg.png");
-    brokenEgg.style.position = "absolute";
-    brokenEgg.style.top = `${gameContainerPos.bottom-20}px`;
-    brokenEgg.style.left = eggEl.style.left;
-    brokenEgg.style.width = "70px";
-    brokenEgg.style.height = "auto";
+  if (egg.top + 20 > gameContainerPos.bottom) {
+    egg.speedY = -egg.speedY;
 
-    eggEl.parentElement.appendChild(brokenEgg);
+    // egg.broken = true;
+    // numberOfBrokenEggs++;
+    // const brokenEgg = document.createElement("img");
+    // brokenEgg.setAttribute("src", "./imgs/broken-egg.png");
+    // brokenEgg.style.position = "absolute";
+    // brokenEgg.style.top = `${gameContainerPos.bottom-20}px`;
+    // brokenEgg.style.left = eggEl.style.left;
+    // brokenEgg.style.width = "70px";
+    // brokenEgg.style.height = "auto";
 
-    eggEl.parentElement.removeChild(eggEl);
+    // eggEl.parentElement.appendChild(brokenEgg);
+
+    // eggEl.parentElement.removeChild(eggEl);
     return false;
   }
   if (egg.left < gameContainerPos.left || egg.left > gameContainerPos.right) {
@@ -122,11 +124,12 @@ document.addEventListener("mousemove", e => {
 });
 
 function egger() {
+  //Create egg
   let rndm = Math.random() * 8;
   const eggProperties = {
     color: eggColors[Math.floor(rndm - 3)],
     speedX: rndm * -1.5,
-    speedY: rndm > 3 ? -rndm*0.8 : rndm*0.8,
+    speedY: rndm > 3 ? -rndm * 0.8 : rndm * 0.8,
   };
 
   const newEgg = document.createElement("i");
@@ -146,7 +149,27 @@ function egger() {
   eggArray.push(eggProperties);
   newEgg.id = eggArray.length;
   eggProperties.el = newEgg.id;
+  //observe egg
+  boxEntryObserver.observe(newEgg);
 }
+
+//intersection observers
+
+const observerCbFunc = entries => {
+  if (entries[0].intersectionRatio !== 0) {
+    console.log(" The egg is in box!");
+  } else {
+    console.log("The egg is out of box");
+  }
+};
+//options for interseciton observer
+
+const options = {
+  root: document.querySelector(".d"),
+  rootMargin: "0px",
+  threshold: 0,
+};
+const boxEntryObserver = new IntersectionObserver(observerCbFunc, options);
 
 egger();
 moveBoxTo();
