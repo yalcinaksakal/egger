@@ -14,9 +14,9 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: "Lato", "Times New Roman", sans-serif;
-  display: flex;
   width: 100vw;
   height: 100vh;
+  display: flex;
   align-items: center;
   justify-content: center;
   background: url("./imgs/farm.jpg");
@@ -24,7 +24,7 @@ body {
 }
 
 .game-container {
-  width: 700px;
+  width: 70vw;
   height: 90vh;
   border: 1px solid gray;
   border-radius: 10px;
@@ -89,8 +89,7 @@ body {
 
 .box-wrapper {
   position: absolute;
-  top: 80vh;
-  left: 350px;
+
   width: var(--cube-size);
   height: var(--cube-size);
 
@@ -165,8 +164,8 @@ body {
 
 /* panel */
 .panel {
-  margin-left: 10px;
-  width: 230px;
+  margin-left: 15px;
+  width: 23vw;
   height: 90vh;
   display: flex;
   flex-direction: column;
@@ -174,7 +173,7 @@ body {
 }
 
 .chicks img {
-  width: 200px;
+  width: 100%;
   height: auto;
   border-radius: 15px;
   border: 1px solid gray;
@@ -184,13 +183,13 @@ body {
 .score,
 .brokens {
   margin-top: 20px;
-  width: 190px;
-  height: 60px;
+  width: 95%;
+  height: 40px;
   background: var(--panel-color-green);
   border-radius: 15px;
   border: 1px solid black;
   box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.674);
-  font-size: 25px;
+  font-size: 20px;
   color: rgb(48, 46, 46);
   font-weight: 700;
   display: flex;
@@ -200,28 +199,42 @@ body {
 .brokens {
   background: var(--panel-color-red);
 }
-.mobile-msg {
-  display: none;
-}
 
-/* media queries */
-@media screen and (max-width: 900px) {
-  .game-container {
-    width: 500px;
+@media screen and (max-width: 700px) {
+  .score,
+  .brokens {
+    font-size: 15px;
+    font-weight: 500;
   }
 }
 
-@media screen and (max-width: 720px) {
-  .mobile-msg {
-    position: absolute;
-    height: 100vh;
-    width: 100%;
-    background-color: rgb(130, 177, 110);
-    color: white;
-    display: flex;
+@media screen and (max-width: 500px) {
+  body {
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    text-align: left;
-    z-index: 100;
+  }
+  .score,
+  .brokens {
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .game-container {
+    width: 90vw;
+    height: 80vh;
+  }
+  .panel {
+    margin: 10px 0 0 0;
+    width: 90vw;
+    height: 10vh;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .chicks {
+    height: 0;
+    width: 0;
+  }
+  .score,
+  .brokens {
+    width: 40vw;
   }
 }

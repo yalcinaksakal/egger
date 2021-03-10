@@ -55,7 +55,6 @@ let score = 0;
 let brokens = 0;
 //
 let gameContainerPos = gameContainer.getBoundingClientRect();
-window.onresize = () => location.reload();
 
 let boxNextX = boxContainer.getBoundingClientRect().left,
   boxNextY = boxContainer.getBoundingClientRect().top;
@@ -258,8 +257,32 @@ function egger() {
   eggProperties.isRemoved = false;
 }
 
-// egger();
+function reset() {
+  const speedX = 5;
+  const speedY = 7;
+  //angle of box
+  let rotateX = 0;
+  let rotateZ = 0;
+
+  let numberOfBrokenEggs = 0;
+  let eggInBoxPosX = 0;
+  let eggInBoxPosY = 40;
+
+  //
+  let score = 0;
+  let brokens = 0;
+  //
+  let gameContainerPos = gameContainer.getBoundingClientRect();
+
+  let boxNextX = boxContainer.getBoundingClientRect().left,
+    boxNextY = boxContainer.getBoundingClientRect().top;
+
+  let directionX, directionY, boxX, boxY;
+}
+reset();
 moveBoxTo();
+
+window.onresize = () => location.reload();
 
 const btnStart = document.getElementById("start");
 btnStart.addEventListener("click", () => {
