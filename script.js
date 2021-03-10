@@ -55,8 +55,7 @@ let score = 0;
 let brokens = 0;
 //
 let gameContainerPos = gameContainer.getBoundingClientRect();
-window.onresize = () =>
-  (gameContainerPos = gameContainer.getBoundingClientRect());
+window.onresize = () => location.reload();
 
 let boxNextX = boxContainer.getBoundingClientRect().left,
   boxNextY = boxContainer.getBoundingClientRect().top;
