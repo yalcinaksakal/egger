@@ -199,16 +199,24 @@ const angleChecker = angle => {
     angle = angle > 0 ? acceptanceAngle : -acceptanceAngle;
   return angle;
 };
-document.addEventListener("mousemove", e => {
-  boxNextX = e.pageX;
-  boxNextY = e.pageY;
 
+const mover = (x, y) => {
+  boxNextX = x;
+  boxNextY = y;
   //rotate box towards mouse
-  rotateZ = angleChecker(e.pageX - eggBoxEl.getBoundingClientRect().left);
-  rotateX = angleChecker(-e.pageY + eggBoxEl.getBoundingClientRect().top);
+  rotateZ = angleChecker(x - eggBoxEl.getBoundingClientRect().left);
+  rotateX = angleChecker(-y + eggBoxEl.getBoundingClientRect().top);
   rotateX = rotateX > 0 ? rotateX / 2 : rotateX;
 
   eggBoxEl.style.transform = `rotateX(${rotateX}deg) rotateZ(${rotateZ}deg)`;
+};
+
+document.addEventListener("mousemove", e => {
+  mover(e.pageX, e.pageY);
+});
+
+document.addEventListener("touchmove", e => {
+  mover(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
 });
 
 function egger() {
