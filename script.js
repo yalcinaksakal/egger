@@ -211,13 +211,15 @@ const mover = (x, y) => {
   eggBoxEl.style.transform = `rotateX(${rotateX}deg) rotateZ(${rotateZ}deg)`;
 };
 
-document.addEventListener("mousemove", e => {
-  mover(e.pageX, e.pageY);
-});
-
-document.addEventListener("touchmove", e => {
-  mover(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
-});
+"ontouchstart" in window ||
+navigator.maxTouchPoints > 0 ||
+navigator.msMaxTouchPoints > 0
+  ? document.addEventListener("touchmove", e => {
+      mover(e.changedTouches[0].pageX, e.changedTouches[0].pageY);
+    })
+  : document.addEventListener("mousemove", e => {
+      mover(e.pageX, e.pageY);
+    });
 
 function egger() {
   //console.log("score: ", score, "brokens: ", brokens, "moving eggs: ", eggArray.length-brokens-score);
