@@ -51,10 +51,7 @@ body {
   user-select: none;
   transform: all 0.3s;
 }
-#start p {
-  font-size: 15px;
-  color: white;
-}
+
 
 #start:hover {
   filter: brightness(110%);
