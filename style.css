@@ -30,7 +30,7 @@ body {
   border: 1px solid gray;
   border-radius: 10px;
   box-shadow: 0 5px 10px 2px rgb(0, 0, 0, 0.6);
-  background: rgba(59, 59, 59, 0.952);
+  background: rgb(59, 59, 59);
 }
 
 #start {
